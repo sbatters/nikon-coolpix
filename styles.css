@@ -240,4 +240,35 @@ main {
     .gallery {
         grid-template-columns: 1fr;
     }
+    
+    /* Mobile enlarged view adjustments */
+    .enlarged-view {
+        gap: 24px;
+    }
+    
+    .enlarged-image-wrapper {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .enlarged-image {
+        max-width: 100%;
+        max-height: 60vh;
+        margin-bottom: 24px;
+    }
+    
+    .nav-button {
+        width: 100%;
+        padding: 12px;
+        font-size: 28px;
+    }
+    
+    .back-button {
+        width: 100%;
+        text-align: center;
+    }
+    
+    main {
+        padding: 0 1rem;
+    }
 }

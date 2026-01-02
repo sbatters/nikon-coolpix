@@ -42,6 +42,19 @@ filterLinks.forEach(link => {
         
         // Close dropdown
         dropdown.classList.remove('active');
+        
+        // If in enlarged view, update to show first image of filtered category
+        const enlargedView = document.querySelector('.enlarged-view');
+        if (enlargedView) {
+            const visibleImages = Array.from(imagePlaceholders).filter(img => !img.classList.contains('hidden'));
+            if (visibleImages.length > 0) {
+                showEnlargedImage(0, visibleImages);
+            } else {
+                // No images in this category, go back to gallery
+                enlargedView.remove();
+                gallery.style.display = 'grid';
+            }
+        }
     });
 });
 
