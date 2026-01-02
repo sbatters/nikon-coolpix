@@ -1,3 +1,8 @@
+// Loading state management
+const loadingOverlay = document.querySelector('.loading-overlay');
+let loadedImagesCount = 0;
+const totalImages = document.querySelectorAll('.image-placeholder').length;
+
 // Dropdown toggle
 const dropdown = document.querySelector('.dropdown');
 const dropdownBtn = document.querySelector('.dropdown-btn');
@@ -76,6 +81,15 @@ imagePlaceholders.forEach((img) => {
             // Set height based on image aspect ratio
             const aspectRatio = this.height / this.width;
             img.style.paddingBottom = `${aspectRatio * 100}%`;
+            
+            // Update loading progress
+            loadedImagesCount++;
+            if (loadedImagesCount === totalImages) {
+                // All images loaded, hide spinner
+                setTimeout(() => {
+                    loadingOverlay.classList.add('hidden');
+                }, 300);
+            }
         };
         tempImg.src = `images/${category}/${imageName}`;
     }
