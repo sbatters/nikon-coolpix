@@ -1,5 +1,6 @@
 // Loading state management
 const loadingOverlay = document.querySelector('.loading-overlay');
+const loadingText = document.getElementById('loading-text');
 let loadedImagesCount = 0;
 const totalImages = document.querySelectorAll('.image-placeholder').length;
 
@@ -84,6 +85,13 @@ imagePlaceholders.forEach((img) => {
             
             // Update loading progress
             loadedImagesCount++;
+            const loadingPercentage = (loadedImagesCount / totalImages) * 100;
+            
+            // Update text when 80-90% loaded
+            if (loadingPercentage >= 80 && loadingPercentage < 100 && loadingText.textContent !== 'Almost done...') {
+                loadingText.textContent = 'Almost done...';
+            }
+            
             if (loadedImagesCount === totalImages) {
                 // All images loaded, hide spinner
                 setTimeout(() => {
