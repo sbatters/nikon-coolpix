@@ -5,6 +5,36 @@
     box-sizing: border-box;
 }
 
+/* Accessibility - Skip link */
+.skip-link {
+    position: absolute;
+    top: -40px;
+    left: 0;
+    background: #000;
+    color: #fff;
+    padding: 8px 16px;
+    text-decoration: none;
+    z-index: 10000;
+    font-family: "IBM Plex Mono", monospace;
+}
+
+.skip-link:focus {
+    top: 0;
+}
+
+/* Screen reader only class */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}
+
 /* Loading overlay styles */
 .loading-overlay {
     position: fixed;
@@ -111,6 +141,11 @@ nav h1 {
     background-color: #555;
 }
 
+.dropdown-btn:focus {
+    outline: 3px solid #4A90E2;
+    outline-offset: 2px;
+}
+
 .arrow {
     font-size: 24px;
     transform: rotate(270deg);
@@ -137,8 +172,14 @@ nav h1 {
     transition: background-color 0.3s ease;
 }
 
-.dropdown-content a:hover {
+.dropdown-content a:hover,
+.dropdown-content a:focus {
     background-color: #f1f1f1;
+    outline: none;
+}
+
+.dropdown-content a:focus {
+    background-color: #e0e0e0;
 }
 
 .dropdown.active .dropdown-content {
@@ -189,6 +230,12 @@ main {
     transform: scale(1.02);
 }
 
+.image-placeholder:focus {
+    outline: 3px solid #4A90E2;
+    outline-offset: 2px;
+    transform: scale(1.02);
+}
+
 .image-placeholder.hidden {
     display: none;
 }
@@ -216,6 +263,11 @@ main {
 
 .back-button:hover {
     background-color: #555;
+}
+
+.back-button:focus {
+    outline: 3px solid #4A90E2;
+    outline-offset: 2px;
 }
 
 .enlarged-image-wrapper {
@@ -258,6 +310,11 @@ main {
 
 .nav-button:hover:not(:disabled) {
     background-color: #555;
+}
+
+.nav-button:focus:not(:disabled) {
+    outline: 3px solid #4A90E2;
+    outline-offset: 2px;
 }
 
 .nav-button:disabled {
