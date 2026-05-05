@@ -1,3 +1,6 @@
+// Azure Blob Storage base URL for images
+const BLOB_STORAGE_URL = 'https://nikongallerystorage.blob.core.windows.net/images';
+
 // Loading state management
 const loadingOverlay = document.querySelector('.loading-overlay');
 const loadingText = document.getElementById('loading-text');
@@ -37,7 +40,7 @@ function loadImage(img) {
         // Load image to get natural dimensions
         const tempImg = new Image();
         tempImg.onload = function() {
-            img.style.backgroundImage = `url('images/${category}/${imageName}')`;
+            img.style.backgroundImage = `url('${BLOB_STORAGE_URL}/${category}/${imageName}')`;
             img.style.backgroundSize = 'cover';
             img.style.backgroundPosition = 'center';
             // Set height based on image aspect ratio
@@ -61,7 +64,7 @@ function loadImage(img) {
                 }
             }
         };
-        tempImg.src = `images/${category}/${imageName}`;
+        tempImg.src = `${BLOB_STORAGE_URL}/${category}/${imageName}`;
     }
 }
 
@@ -229,7 +232,7 @@ function showEnlargedImage(currentIndex, visibleImages) {
     
     const category = currentImg.getAttribute('data-category');
     const imageName = currentImg.getAttribute('data-image');
-    const imageUrl = `images/${category}/${imageName}`;
+    const imageUrl = `${BLOB_STORAGE_URL}/${category}/${imageName}`;
     
     // Hide gallery
     gallery.style.display = 'none';
