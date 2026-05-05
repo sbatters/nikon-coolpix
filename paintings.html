@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Paintings Gallery by SC Battershell">
+    <title>Paintings Gallery | SC Battershell</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>🎨</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Skip link for keyboard navigation -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    
+    <!-- Loading spinner -->
+    <div class="loading-overlay" role="status" aria-live="polite">
+        <div class="spinner" aria-hidden="true"></div>
+        <p id="loading-text">Loading gallery...</p>
+    </div>
+    
+    <header role="banner">
+        <nav aria-label="Main navigation">
+            <div class="title-group">
+                <h1>Paintings Gallery</h1>
+                <p class="subtitle">A collection of tonalism landscapes.</p>
+            </div>
+            <div class="nav-controls">
+                <div class="dropdown">
+                    <button class="dropdown-btn" aria-haspopup="true" aria-expanded="false" aria-label="Filter gallery by category">Filter paintings <span class="arrow" aria-hidden="true">‹</span></button>
+                    <div class="dropdown-content" role="menu">
+                        <a href="#" data-filter="all" role="menuitem">All</a>
+                        <a href="#" data-filter="abstract" role="menuitem">Desert</a>
+                        <a href="#" data-filter="landscape" role="menuitem">Forest</a>
+                        <a href="#" data-filter="portrait" role="menuitem">Mountains</a>
+                        <a href="#" data-filter="portrait" role="menuitem">Water</a>
+                    </div>
+                </div>
+                <a href="index.html" class="nav-link-btn" aria-label="Go to homepage">Home</a>
+                <a href="photography.html" class="nav-link-btn" aria-label="Go to photography gallery">Photography gallery</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Scroll to top button -->
+    <button id="scroll-to-top" class="scroll-to-top-btn" aria-label="Scroll to top">↑</button>
+
+    <main id="main-content" role="main">
+        <div class="gallery" role="region" aria-label="Paintings gallery" aria-live="polite">
+            <!-- Image placeholders will be added here -->
+            <!-- Example format:
+            <div class="image-placeholder" data-category="abstract" data-image="painting-01.jpg"></div>
+            -->
+        </div>
+    </main>
+    <script src="script.js"></script>
+</body>
+</html>

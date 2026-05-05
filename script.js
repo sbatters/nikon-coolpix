@@ -2,14 +2,106 @@
 const loadingOverlay = document.querySelector('.loading-overlay');
 const loadingText = document.getElementById('loading-text');
 let loadedImagesCount = 0;
-const totalImages = document.querySelectorAll('.image-placeholder').length;
+let imagesToLoadInitially = 0;
+
+// If no images, hide loading overlay immediately
+const imagePlaceholders = document.querySelectorAll('.image-placeholder');
+if (imagePlaceholders.length === 0) {
+    loadingOverlay.classList.add('hidden');
+}
+
+// Lazy loading with Intersection Observer
+const imageObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            const img = entry.target;
+            loadImage(img);
+            observer.unobserve(img);
+        }
+    });
+}, {
+    rootMargin: '50px' // Start loading 50px before image enters viewport
+});
+
+function loadImage(img) {
+    const imageName = img.getAttribute('data-image');
+    const category = img.getAttribute('data-category');
+    if (imageName && category && !img.dataset.loaded) {
+        img.dataset.loaded = 'loading';
+        
+        // Add accessibility attributes
+        img.setAttribute('role', 'button');
+        img.setAttribute('tabindex', '0');
+        img.setAttribute('aria-label', `View ${category.replace('-', ' ')} photo ${imageName}`);
+        
+        // Load image to get natural dimensions
+        const tempImg = new Image();
+        tempImg.onload = function() {
+            img.style.backgroundImage = `url('images/${category}/${imageName}')`;
+            img.style.backgroundSize = 'cover';
+            img.style.backgroundPosition = 'center';
+            // Set height based on image aspect ratio
+            const aspectRatio = this.height / this.width;
+            img.style.paddingBottom = `${aspectRatio * 100}%`;
+            img.dataset.loaded = 'true';
+            
+            // Update loading progress for initial batch
+            if (loadedImagesCount < imagesToLoadInitially) {
+                loadedImagesCount++;
+                const loadingPercentage = (loadedImagesCount / imagesToLoadInitially) * 100;
+                
+                if (loadingPercentage >= 95 && loadingText.textContent !== 'Finishing...') {
+                    loadingText.textContent = 'Finishing...';
+                }
+                
+                if (loadedImagesCount === imagesToLoadInitially) {
+                    setTimeout(() => {
+                        loadingOverlay.classList.add('hidden');
+                    }, 300);
+                }
+            }
+        };
+        tempImg.src = `images/${category}/${imageName}`;
+    }
+}
+
+// Count initially visible images (first 12)
+imagesToLoadInitially = Math.min(12, imagePlaceholders.length);
+
+// Load first batch immediately, observe the rest
+imagePlaceholders.forEach((img, index) => {
+    if (index < imagesToLoadInitially) {
+        loadImage(img);
+    } else {
+        imageObserver.observe(img);
+    }
+    
+    img.addEventListener('click', () => {
+        // Get visible images at click time
+        const visibleImages = Array.from(imagePlaceholders).filter(img => !img.classList.contains('hidden'));
+        const currentIndex = visibleImages.indexOf(img);
+        showEnlargedImage(currentIndex, visibleImages);
+    });
+    
+    // Add keyboard support (Enter and Space keys)
+    img.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            const visibleImages = Array.from(imagePlaceholders).filter(img => !img.classList.contains('hidden'));
+            const currentIndex = visibleImages.indexOf(img);
+            showEnlargedImage(currentIndex, visibleImages);
+        }
+    });
+    
+    // Add pointer cursor to indicate clickability
+    img.style.cursor = 'pointer';
+});
 
 // Dropdown toggle
 const dropdown = document.querySelector('.dropdown');
 const dropdownBtn = document.querySelector('.dropdown-btn');
 const dropdownContent = document.querySelector('.dropdown-content');
 const filterLinks = document.querySelectorAll('.dropdown-content a');
-const imagePlaceholders = document.querySelectorAll('.image-placeholder');
 
 // Toggle dropdown on button click
 dropdownBtn.addEventListener('click', (e) => {
@@ -80,9 +172,17 @@ filterLinks.forEach(link => {
             if (filter === 'all') {
                 img.classList.remove('hidden');
                 img.removeAttribute('aria-hidden');
+                // Load image if not already loaded
+                if (!img.dataset.loaded) {
+                    loadImage(img);
+                }
             } else if (category === filter) {
                 img.classList.remove('hidden');
                 img.removeAttribute('aria-hidden');
+                // Load image if not already loaded
+                if (!img.dataset.loaded) {
+                    loadImage(img);
+                }
             } else {
                 img.classList.add('hidden');
                 img.setAttribute('aria-hidden', 'true');
@@ -121,66 +221,6 @@ filterLinks.forEach(link => {
 // Image click to enlarge (shows in page with back button)
 const gallery = document.querySelector('.gallery');
 const main = document.querySelector('main');
-
-// Load thumbnail images into placeholders
-imagePlaceholders.forEach((img) => {
-    const imageName = img.getAttribute('data-image');
-    const category = img.getAttribute('data-category');
-    if (imageName && category) {
-        // Add accessibility attributes
-        img.setAttribute('role', 'button');
-        img.setAttribute('tabindex', '0');
-        img.setAttribute('aria-label', `View ${category.replace('-', ' ')} photo ${imageName}`);
-        
-        // Load image to get natural dimensions
-        const tempImg = new Image();
-        tempImg.onload = function() {
-            img.style.backgroundImage = `url('images/${category}/${imageName}')`;
-            img.style.backgroundSize = 'cover';
-            img.style.backgroundPosition = 'center';
-            // Set height based on image aspect ratio
-            const aspectRatio = this.height / this.width;
-            img.style.paddingBottom = `${aspectRatio * 100}%`;
-            
-            // Update loading progress
-            loadedImagesCount++;
-            const loadingPercentage = (loadedImagesCount / totalImages) * 100;
-            
-            // Update text when 80-90% loaded
-            if (loadingPercentage >= 80 && loadingPercentage < 100 && loadingText.textContent !== 'Almost done...') {
-                loadingText.textContent = 'Almost done...';
-            }
-            
-            if (loadedImagesCount === totalImages) {
-                // All images loaded, hide spinner
-                setTimeout(() => {
-                    loadingOverlay.classList.add('hidden');
-                }, 300);
-            }
-        };
-        tempImg.src = `images/${category}/${imageName}`;
-    }
-    
-    img.addEventListener('click', () => {
-        // Get visible images at click time
-        const visibleImages = Array.from(imagePlaceholders).filter(img => !img.classList.contains('hidden'));
-        const currentIndex = visibleImages.indexOf(img);
-        showEnlargedImage(currentIndex, visibleImages);
-    });
-    
-    // Add keyboard support (Enter and Space keys)
-    img.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-            e.preventDefault();
-            const visibleImages = Array.from(imagePlaceholders).filter(img => !img.classList.contains('hidden'));
-            const currentIndex = visibleImages.indexOf(img);
-            showEnlargedImage(currentIndex, visibleImages);
-        }
-    });
-    
-    // Add pointer cursor to indicate clickability
-    img.style.cursor = 'pointer';
-});
 
 function showEnlargedImage(currentIndex, visibleImages) {
     const currentImg = visibleImages[currentIndex];
@@ -309,3 +349,39 @@ function showEnlargedImage(currentIndex, visibleImages) {
         });
     }
 }
+
+// Scroll to top button functionality
+const scrollToTopBtn = document.getElementById('scroll-to-top');
+
+// Show/hide scroll to top button based on scroll position
+window.addEventListener('scroll', () => {
+    const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const scrollPosition = window.scrollY;
+    const scrollPercentage = (scrollPosition / scrollHeight) * 100;
+    
+    // Show button when scrolled 40% down
+    if (scrollPercentage >= 40) {
+        scrollToTopBtn.classList.add('visible');
+    } else {
+        scrollToTopBtn.classList.remove('visible');
+    }
+});
+
+// Scroll to top when button is clicked
+scrollToTopBtn.addEventListener('click', () => {
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    });
+});
+
+// Keyboard support for scroll to top button
+scrollToTopBtn.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    }
+});

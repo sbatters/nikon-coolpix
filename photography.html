@@ -12,31 +12,38 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <!-- Skip link for keyboard navigation -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    
     <!-- Loading spinner -->
-    <div class="loading-overlay">
-        <div class="spinner"></div>
+    <div class="loading-overlay" role="status" aria-live="polite">
+        <div class="spinner" aria-hidden="true"></div>
         <p id="loading-text">Loading gallery...</p>
     </div>
     
-    <header>
-        <nav>
+    <header role="banner">
+        <nav aria-label="Main navigation">
             <div class="title-group">
                 <h1>Nikon CoolPix S630</h1>
                 <p class="subtitle">A curated selection of snaps.</p>
             </div>
-            <div class="dropdown">
-                <button class="dropdown-btn">Filter images <span class="arrow">‹</span></button>
-                <div class="dropdown-content">
-                    <a href="#" data-filter="all">All</a>
-                    <a href="#" data-filter="australia">Australia</a>
-                    <a href="#" data-filter="birds">Birds</a>
-                    <a href="#" data-filter="desert">Desert</a>
-                    <a href="#" data-filter="grand-canyon">Grand Canyon</a>
-                    <a href="#" data-filter="greece">Greece</a>
-                    <a href="#" data-filter="misc-location">Misc</a>
-                    <a href="#" data-filter="nature">Nature</a>
-                    <a href="#" data-filter="seattle">Seattle</a>
+            <div class="nav-controls">
+                <div class="dropdown">
+                    <button class="dropdown-btn" aria-haspopup="true" aria-expanded="false" aria-label="Filter gallery by category">Filter images <span class="arrow" aria-hidden="true">‹</span></button>
+                    <div class="dropdown-content" role="menu">
+                        <a href="#" data-filter="all" role="menuitem">All</a>
+                        <a href="#" data-filter="australia" role="menuitem">Australia</a>
+                        <a href="#" data-filter="birds" role="menuitem">Birds</a>
+                        <a href="#" data-filter="desert" role="menuitem">Desert</a>
+                        <a href="#" data-filter="grand-canyon" role="menuitem">Grand Canyon</a>
+                        <a href="#" data-filter="greece" role="menuitem">Greece</a>
+                        <a href="#" data-filter="misc-location" role="menuitem">Misc</a>
+                        <a href="#" data-filter="nature" role="menuitem">Nature</a>
+                        <a href="#" data-filter="seattle" role="menuitem">Seattle</a>
+                    </div>
                 </div>
+                <a href="index.html" class="nav-link-btn" aria-label="Go to homepage">Home</a>
+                <a href="paintings.html" class="nav-link-btn" aria-label="Go to paintings gallery">Paintings gallery</a>
             </div>
         </nav>
     </header>
@@ -44,8 +51,8 @@
     <!-- Scroll to top button -->
     <button id="scroll-to-top" class="scroll-to-top-btn" aria-label="Scroll to top">↑</button>
 
-    <main>
-        <div class="gallery">
+    <main id="main-content" role="main">
+        <div class="gallery" role="region" aria-label="Photo gallery" aria-live="polite">
             <div class="image-placeholder" data-category="grand-canyon" data-image="DSCN1364.JPG"></div>
             <div class="image-placeholder" data-category="grand-canyon" data-image="DSCN1366.JPG"></div>
             <div class="image-placeholder" data-category="grand-canyon" data-image="DSCN1374.JPG"></div>
@@ -123,81 +130,10 @@
             <div class="image-placeholder" data-category="nature" data-image="DSCN1150.JPG"></div>
             <div class="image-placeholder" data-category="nature" data-image="DSCN1151.JPG"></div>
             <div class="image-placeholder" data-category="nature" data-image="DSCN1154.JPG"></div>
+            <div class="image-placeholder" data-category="nature" data-image="DSCN1155.JPG"></div>
+            <div class="image-placeholder" data-category="nature" data-image="DSCN1156.JPG"></div>
             <div class="image-placeholder" data-category="nature" data-image="DSCN1160.JPG"></div>
-            <div class="image-placeholder" data-category="nature" data-image="DSCN1427.JPG"></div>
-            <div class="image-placeholder" data-category="nature" data-image="DSCN1445.JPG"></div>
-            <div class="image-placeholder" data-category="nature" data-image="DSCN1449.JPG"></div>
-            <div class="image-placeholder" data-category="nature" data-image="DSCN1450.JPG"></div>
-            <div class="image-placeholder" data-category="nature" data-image="DSCN1465.JPG"></div>
-            <div class="image-placeholder" data-category="nature" data-image="DSCN1469.JPG"></div>
-            <div class="image-placeholder" data-category="nature" data-image="DSCN1471.JPG"></div>
-            <div class="image-placeholder" data-category="nature" data-image="DSCN1493.JPG"></div>
-            <div class="image-placeholder" data-category="nature" data-image="DSCN1535.JPG"></div>
-            <div class="image-placeholder" data-category="nature" data-image="DSCN1551.JPG"></div>
-            <div class="image-placeholder" data-category="nature" data-image="DSCN1557.JPG"></div>
-            <div class="image-placeholder" data-category="misc-location" data-image="DSCN1588.JPG"></div>
-            <div class="image-placeholder" data-category="misc-location" data-image="DSCN1589.JPG"></div>
-            <div class="image-placeholder" data-category="misc-location" data-image="PICT0009.jpg"></div>
-            <div class="image-placeholder" data-category="misc-location" data-image="PICT0010.jpg"></div>
-            <div class="image-placeholder" data-category="misc-location" data-image="PICT0025.jpg"></div>
-            <div class="image-placeholder" data-category="misc-location" data-image="PICT0027.jpg"></div>
-            <div class="image-placeholder" data-category="australia" data-image="DSCN1422.JPG"></div>
-            <div class="image-placeholder" data-category="australia" data-image="DSCN1423.JPG"></div>
-            <div class="image-placeholder" data-category="australia" data-image="DSCN1424.JPG"></div>
-            <div class="image-placeholder" data-category="australia" data-image="DSCN1483.JPG"></div>
-            <div class="image-placeholder" data-category="australia" data-image="DSCN1484.JPG"></div>
-            <div class="image-placeholder" data-category="australia" data-image="DSCN1487.JPG"></div>
-            <div class="image-placeholder" data-category="australia" data-image="DSCN1495.JPG"></div>
-            <div class="image-placeholder" data-category="australia" data-image="DSCN1497.JPG"></div>
-            <div class="image-placeholder" data-category="australia" data-image="DSCN1498.JPG"></div>
-            <div class="image-placeholder" data-category="australia" data-image="DSCN1499.JPG"></div>
-            <div class="image-placeholder" data-category="australia" data-image="DSCN1500.JPG"></div>
-            <div class="image-placeholder" data-category="australia" data-image="DSCN1511.JPG"></div>
-            <div class="image-placeholder" data-category="australia" data-image="DSCN1515.JPG"></div>
-            <div class="image-placeholder" data-category="australia" data-image="DSCN1516.JPG"></div>
-            <div class="image-placeholder" data-category="australia" data-image="DSCN1517.JPG"></div>
-            <div class="image-placeholder" data-category="australia" data-image="DSCN1519.JPG"></div>
-            <div class="image-placeholder" data-category="australia" data-image="DSCN1520.JPG"></div>
-            <div class="image-placeholder" data-category="australia" data-image="DSCN1521.JPG"></div>
-            <div class="image-placeholder" data-category="australia" data-image="DSCN1526.JPG"></div>
-            <div class="image-placeholder" data-category="australia" data-image="DSCN1528.JPG"></div>
-            <div class="image-placeholder" data-category="australia" data-image="DSCN1532.JPG"></div>
-            <div class="image-placeholder" data-category="australia" data-image="DSCN1542.JPG"></div>
-            <div class="image-placeholder" data-category="australia" data-image="DSCN1543.JPG"></div>
-            <div class="image-placeholder" data-category="australia" data-image="DSCN1544.JPG"></div>
-            <div class="image-placeholder" data-category="australia" data-image="DSCN1545.JPG"></div>
-            <div class="image-placeholder" data-category="australia" data-image="DSCN1558.JPG"></div>
-            <div class="image-placeholder" data-category="australia" data-image="DSCN1587.JPG"></div>
-            <div class="image-placeholder" data-category="australia" data-image="DSCN1591.JPG"></div>
-            <div class="image-placeholder" data-category="australia" data-image="DSCN1592.JPG"></div>
-            <div class="image-placeholder" data-category="australia" data-image="DSCN1595.JPG"></div>
-            <div class="image-placeholder" data-category="australia" data-image="DSCN1596.JPG"></div>
-            <div class="image-placeholder" data-category="australia" data-image="DSCN1599.JPG"></div>
-            <div class="image-placeholder" data-category="australia" data-image="DSCN1600.JPG"></div>
-            <div class="image-placeholder" data-category="australia" data-image="DSCN1602.JPG"></div>
-            <div class="image-placeholder" data-category="australia" data-image="DSCN1612.JPG"></div>
-            <div class="image-placeholder" data-category="australia" data-image="DSCN1615.JPG"></div>
-            <div class="image-placeholder" data-category="australia" data-image="DSCN1616.JPG"></div>
-            <div class="image-placeholder" data-category="australia" data-image="DSCN1617.JPG"></div>
-            <div class="image-placeholder" data-category="birds" data-image="DSCN1085.JPG"></div>
-            <div class="image-placeholder" data-category="birds" data-image="DSCN1434.JPG"></div>
-            <div class="image-placeholder" data-category="birds" data-image="DSCN1438.JPG"></div>
-            <div class="image-placeholder" data-category="birds" data-image="DSCN1441.JPG"></div>
-            <div class="image-placeholder" data-category="birds" data-image="DSCN1463.JPG"></div>
-            <div class="image-placeholder" data-category="birds" data-image="DSCN1476.JPG"></div>
-            <div class="image-placeholder" data-category="birds" data-image="DSCN1486.JPG"></div>
-            <div class="image-placeholder" data-category="birds" data-image="DSCN1490.JPG"></div>
-            <div class="image-placeholder" data-category="birds" data-image="DSCN1522.JPG"></div>
-            <div class="image-placeholder" data-category="birds" data-image="DSCN1548.JPG"></div>
-            <div class="image-placeholder" data-category="birds" data-image="DSCN1561.JPG"></div>
-            <div class="image-placeholder" data-category="birds" data-image="DSCN1564.JPG"></div>
-            <div class="image-placeholder" data-category="birds" data-image="DSCN1567.JPG"></div>
-            <div class="image-placeholder" data-category="birds" data-image="DSCN1569.JPG"></div>
-            <div class="image-placeholder" data-category="birds" data-image="DSCN1577.JPG"></div>
-            <div class="image-placeholder" data-category="birds" data-image="DSCN1578.JPG"></div>
-            <div class="image-placeholder" data-category="birds" data-image="DSCN1582.JPG"></div>
-            <div class="image-placeholder" data-category="birds" data-image="DSCN1586.JPG"></div>
-            <div class="image-placeholder" data-category="birds" data-image="DSCN1619.JPG"></div>
+            <div class="image-placeholder" data-category="misc-location" data-image="DSCN1085.JPG"></div>
         </div>
     </main>
     <script src="script.js"></script>
