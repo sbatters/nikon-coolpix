@@ -1,8 +1,5 @@
 // Azure Blob Storage base URL for images
-const BLOB_STORAGE_URL = 'https://nikongallerystorage.blob.core.windows.net/images';
-
-// Azure Blob Storage base URL for images
-const BLOB_STORAGE_URL = 'https://nikongallerystorage.blob.core.windows.net/images';
+const BLOB_STORAGE_URL = 'https://nikongallerystorage.blob.core.windows.net/images/images';
 
 // Loading state management
 const loadingOverlay = document.querySelector('.loading-overlay');
